@@ -17,6 +17,7 @@ import xyz.kyngs.librelogin.api.database.connector.DatabaseConnector;
 import xyz.kyngs.librelogin.api.event.EventProvider;
 import xyz.kyngs.librelogin.api.event.EventTypes;
 import xyz.kyngs.librelogin.api.image.ImageProjector;
+import xyz.kyngs.librelogin.api.integration.LimboIntegration;
 import xyz.kyngs.librelogin.api.mail.EmailHandler;
 import xyz.kyngs.librelogin.api.premium.PremiumProvider;
 import xyz.kyngs.librelogin.api.server.ServerHandler;
@@ -24,11 +25,11 @@ import xyz.kyngs.librelogin.api.totp.TOTPProvider;
 import xyz.kyngs.librelogin.api.util.SemanticVersion;
 import xyz.kyngs.librelogin.api.util.ThrowableFunction;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.UUID;
+import javax.annotation.Nullable;
 
 /**
  * The main plugin interface.
@@ -153,6 +154,9 @@ public interface LibreLoginPlugin<P, S> {
      *
      * @param factory The factory used to create the connector. The string parameter is the configuration prefix.
      * @param clazz   The class the connector will be registered for. (e.g. {@link xyz.kyngs.librelogin.api.database.connector.MySQLDatabaseConnector})
+     * @param <C>     The type of the connector
+     * @param <E>     The type of the exception
+     * @param id      The ID of the connector
      */
     <E extends Exception, C extends DatabaseConnector<E, ?>> void registerDatabaseConnector(Class<?> clazz, ThrowableFunction<String, C, E> factory, String id);
 
@@ -239,6 +243,16 @@ public interface LibreLoginPlugin<P, S> {
      */
     @Nullable
     EmailHandler getEmailHandler();
+
+    /**
+     * Gets the limbo provider integration.
+     * <br>
+     * <b>This can be used for creating limbo's</b>
+     *
+     * @return The limbo provider, or null if no integration was found
+     */
+    @Nullable
+    LimboIntegration<S> getLimboIntegration();
 
     /**
      * Gets the event types.

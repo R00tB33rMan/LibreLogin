@@ -211,6 +211,7 @@ public class ConfigurationKeys {
                     loginsecurity-sqlite - Can convert from SQLite LoginSecurity BCrypt
                     fastlogin-sqlite - Can convert from SQLite FastLogin, !!YOU MUST RUN CONVERSION FROM AUTHME FIRST!!
                     fastlogin-mysql - Can convert from MySQL FastLogin, !!YOU MUST RUN CONVERSION FROM AUTHME FIRST!!
+                    limboauth-mysql - Can convert from MySQL LimboAuth BCrypt and SHA256
                     librelogin-mysql - Can convert from MySQL LibreLogin, useful for migrating to a different database
                     librelogin-sqlite - Can convert from SQLite LibreLogin, useful for migrating to a different database
                     """,
@@ -357,5 +358,11 @@ public class ConfigurationKeys {
                     Verifies whether the IP the players had used when authenticating to Mojang matches the IP they are connecting from. Disabling this may break LibreLogin if the server is running under a reverse proxy/VPN.
                     """,
             ConfigurateHelper::getBoolean
+    );
+    public static final ConfigurationKey<String> LIMBO_PORT_RANGE = new ConfigurationKey<>(
+            "limbo-port-range",
+            "30000-40000",
+            "!!THIS OPTION IS IRRELEVANT WHEN USING PAPER!! Defines port(s) that limbo server can be bounded to.",
+            ConfigurateHelper::getString
     );
 }
